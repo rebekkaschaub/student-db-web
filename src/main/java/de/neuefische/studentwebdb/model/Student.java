@@ -1,9 +1,15 @@
 package de.neuefische.studentwebdb.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class Student {
+    @NotBlank(message = "student name is is required")
+    @Size(min = 2, max = 40, message="name length must be between 2 and 40 characters long")
     private String name;
+
+    @NotBlank(message = "student id is is required")
     private String id;
 
     public Student(String name, String id) {
