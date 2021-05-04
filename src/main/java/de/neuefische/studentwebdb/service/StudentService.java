@@ -8,26 +8,20 @@ import java.util.Optional;
 
 public class StudentService {
 
-   private final List<Student> students= List.of(
-            new Student("Hanna","12"),
-            new Student("Linda","34"),
-            new Student("Theresa","56"),
-            new Student("Natalia","78"),
-            new Student("Sophie","90"),
-            new Student("Sonja","91"),
-            new Student("Sascha","94")
+   private final List<Student> students;
 
-    );
+    public StudentService(List<Student> students) {
+        this.students = new ArrayList<>(students);
+    }
 
-
-   public List<Student> list(){
+    public List<Student> list(){
            return students;
    }
 
-   public List<Student> filterStudentsByFirstLetter(String startsWith) {
+   public List<Student> filterStudentsByName(String search) {
         List<Student> studentsFiltered = new ArrayList<>();
         for (Student student : students) {
-            if(student.getName().toLowerCase().startsWith(startsWith.toLowerCase())){
+            if(student.getName().toLowerCase().contains(search.toLowerCase())){
                  studentsFiltered.add(student);
             }
         }
@@ -41,5 +35,16 @@ public class StudentService {
            }
        }
        return Optional.empty();
+   }
+
+   public void addStudent(Student student){
+        students.add(student);
+   }
+
+   public void removeStudent(String id){
+
+        if(findById(id).isPresent()) {
+            students.remove(findById(id).get());
+        }
    }
 }
