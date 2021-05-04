@@ -47,4 +47,10 @@ public class StudentService {
             students.remove(findById(id).get());
         }
    }
+
+
+    public void updateStudent(Student student) {
+        removeStudent(student.getId());
+        addStudent(student);
+    }
 }

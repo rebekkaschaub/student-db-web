@@ -44,15 +44,17 @@ public class StudentController {
     }
 
     @PutMapping("{id}")
-    public void addStudent(@Valid @RequestBody Student student,
+    public void upSertStudent(@Valid @RequestBody Student student,
                            @PathVariable String id){
         if(!id.equals(student.getId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id not matching");
         }
+
         if(studentService.findById(id).isEmpty()){
             studentService.addStudent(student);
-        }else
-
+        }else{
+            studentService.updateStudent(student);
+        }
     }
 
     @DeleteMapping("{id}")
