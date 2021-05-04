@@ -15,12 +15,16 @@ public class StudentController {
     private final StudentService studentService = new StudentService();
 
     @GetMapping
-    public List<Student> listStudents(@RequestParam Optional<String> q){
-        return studentService.list(q);
+    public List<Student> listStudents(@RequestParam Optional<String> startsWith){
+        if(startsWith.isEmpty()){
+            return studentService.list();
+        }else{
+            return studentService.filterStudentsByFirstLetter(startsWith.get());
+        }
     }
 
     @GetMapping(path ="{id}")
-    public Student getStudent(@PathVariable String id){
+    public Student getStudentById(@PathVariable String id){
         Optional<Student> optionalStudent = studentService.findById(id);
         return optionalStudent.orElse(null);
     }

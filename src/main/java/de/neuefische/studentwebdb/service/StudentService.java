@@ -20,25 +20,21 @@ public class StudentService {
     );
 
 
-   public List<Student> list(Optional<String> q){
-       if(q.isEmpty()){
+   public List<Student> list(){
            return students;
-       }else{
-           return filterStudentsByFirstLetter(q.get());
-       }
    }
 
-    private List<Student> filterStudentsByFirstLetter(String q) {
+   public List<Student> filterStudentsByFirstLetter(String startsWith) {
         List<Student> studentsFiltered = new ArrayList<>();
         for (Student student : students) {
-            if(student.getName().startsWith(q)){
+            if(student.getName().toLowerCase().startsWith(startsWith.toLowerCase())){
                  studentsFiltered.add(student);
             }
         }
         return studentsFiltered;
-    }
+   }
 
-    public Optional<Student> findById(String id){
+   public Optional<Student> findById(String id){
        for (Student student : students) {
            if(student.getId().equals(id)){
                return Optional.of(student);
